@@ -1,12 +1,22 @@
 let chat = {
     nom: 'Esteban',
     race: 'Sphynx',
-    miaule(i) {
-        setTimeout(() => {
-            console.log(`${chat.nom} a miaouuuuu`);
-        }, i);
+    miaule() {
+      
+            for (let i = 2000; i < 8000; i += 2000)
+        {
+            setTimeout(() => {
+                console.log(`${chat.nom} a miaouuuuu`);
+            }, i);
+        }
+        }
+       
     }
     
+
+let cimetierre = {
+    nom: "cimetierre",
+    lieu: []
 }
 let traitement;
 
@@ -28,21 +38,16 @@ let doctor = {
                 break;
                 
             case 404: traitement = `CheckLinkRelation`;
-            break;
+                break;
                 
             case 'azmatique': traitement = `Ventoline`;
-            break;
+                break;
                 
             case 'syntaxError': traitement = `f12+doc`;
-            break;
-                
+                break;
+
         }
-        if (this.cabinet.includes(patient)) {
-            for (let i = 2000; i < 8000; i += 2000)
-        {
-            chat.miaule(i)
-        }
-        }
+       
         
         
         patient.etatDeSante = "traitement";
@@ -50,6 +55,7 @@ let doctor = {
             alert("you filthy bastard")
         } else {
             patient.paye(this.prixCons);
+            doctor.argent += this.priCons;
             
         }
         
@@ -62,7 +68,7 @@ let doctor = {
     },
     patientOut(patient , traitement) {
         this.cabinet.splice(this.cabinet.indexOf(patient), 1)
-        console.log(`${patient.nom} a reçu une ordonnance pour ${traitement} pour aller mieux`);
+        console.log(`${patient.nom} a reçu une ordonnance de ${traitement} pour aller mieux`);
         console.log(`${patient.nom} est sorti du cabinet`);
         patient.etatDeSante = 'malade';
     }
@@ -77,25 +83,30 @@ let doctor = {
 let pharmacie = {
     nom: 'pharmacie',
     lieu: [],
+    caisse : 0,
     traitement(personne, traitement) {
+        
         switch (traitement) {
-        case 'ctrl+maj+f': return this.prix(60, 'ctrl+maj+f', personne)
-        case  'saveOnFocusChange' : return this.prix(100,'saveOnFocusChange', personne)
-        case 'CheckLinkRelation' : return this.prix(35,'CheckLinkRelation', personne)
-        case 'Ventoline' :return this.prix(40, 'Ventoline', personne)
-        case 'f12+doc' : return this.prix(20,'f12+doc', personne)
+        case 'ctrl+maj+f': return this.prix(60, traitement, personne)
+        case  'saveOnFocusChange' : return this.prix(100, traitement, personne)
+        case 'CheckLinkRelation' : return this.prix(35, traitement, personne)
+        case 'Ventoline' :return this.prix(40, traitement, personne)
+        case 'f12+doc' : return this.prix(20,traitement, personne)
        }
     },
     prix(prix, medicament, personne) {
         if (personne.argent < prix) {
             this.lieu.splice(0, 1)
             console.log(`${personne.nom} a no tune, donc no medoc`);
-            personne.takeCare()
+            personne.takeCare(cimetierre)
         } else {
+            personne.paye(prix);
+            this.caisse += prix;
+            personne.argent;
             personne.poche.push(medicament)
             this.lieu.splice(0, 1);
             console.log(`${personne.nom} a payé ${prix} et a obtenu ${medicament}, gg`);
-            personne.takeCare();
+            personne.takeCare(cimetierre);
         }
     }
     

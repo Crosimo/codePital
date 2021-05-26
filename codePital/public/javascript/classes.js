@@ -22,9 +22,9 @@ class Malade{
             console.log(`${this.nom} va à la ${lieuArr.nom}`);
         }
     };
-    takeCare() {
+    takeCare(cimetierre) {
         if (this.poche.length != 0) {
-            console.log(`${this.nom} prend ${this.poche[0]} et est en bonne santé`)
+            console.log(`${this.nom} prend du ${this.poche[0]} et est en bonne santé`)
             this.etatDeSante = 'bonne santé'
         } else {
             console.log(`${this.nom} n'a pas de médicament et est toujours malade, il décède`);
@@ -32,13 +32,15 @@ class Malade{
                 this.position.splice(0, 1); 
             }
             
-            this.position.push('cimetierre')
-            console.log(`${this.nom} est au ${this.position[0]}`);
+            this.position.push(cimetierre)
+            console.log(`${this.nom} est au ${this.position[0].nom}`);
+            cimetierre.lieu.push(this);
         }
         
     }
     paye(prix) {
         this.argent -= prix;
+        console.log(this.argent);
     }
 }
 
