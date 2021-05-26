@@ -1,15 +1,17 @@
 let chat = {
     nom: 'Esteban',
     race: 'Sphynx',
-    miaule() {
+    miaule : setInterval(function() {
+        console.log(`${chat.nom} a miaouuuuu`);
+    },2000) 
       
-            for (let i = 2000; i < 8000; i += 2000)
-        {
-            setTimeout(() => {
-                console.log(`${chat.nom} a miaouuuuu`);
-            }, i);
-        }
-        }
+        //     for (let i = 2000; i < 8000; i += 2000)
+        // {
+        //     setTimeout(() => {
+        //         console.log(`${chat.nom} a miaouuuuu`);
+        //     }, i);
+        // }
+        
        
     }
     
